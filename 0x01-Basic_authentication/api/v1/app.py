@@ -28,6 +28,7 @@ if AUTH_TYPE == 'basic_auth':
 
 @app.before_request
 def before_request_check():
+    """a method in api/v1/app.py to handler before_request"""
     if auth is None:
         return
     excluded_paths = ['/api/v1/status/',
