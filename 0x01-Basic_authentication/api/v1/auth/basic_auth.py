@@ -45,9 +45,9 @@ class BasicAuth(Auth):
 
     @staticmethod
     def extract_user_credentials(
-            decoded_base64_authorization_header: str) -> (str, str):
-        """method that  returns the user email
-        and password from the Base64 decoded value"""
+            self, decoded_base64_authorization_header: str) -> (str, str):
+        """method that  returns the user email and password from the Base64
+        decoded value"""
         if decoded_base64_authorization_header is None:
             return None, None
         if not isinstance(decoded_base64_authorization_header, str):
@@ -55,7 +55,7 @@ class BasicAuth(Auth):
         if ':' not in decoded_base64_authorization_header:
             return None, None
 
-        email, password = decoded_base64_authorization_header.split(':')
+        email, password = decoded_base64_authorization_header.split(':', 1)
         return email, password
 
     def user_object_from_credentials(
