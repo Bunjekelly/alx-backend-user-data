@@ -9,4 +9,5 @@ from typing import TypeVar
 class BasicAuth(Auth):
     """Class for basic authentication"""
     def __init__(self) -> None:
+        """method that initializes the class"""
         super().__init__()
