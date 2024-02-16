@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""
-Route module for the API
-"""
+
+"""Route module for the API authentification"""
+
 from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
@@ -42,14 +42,12 @@ def before_request_check():
     current_user = auth.current_user(request)
     if current_user is None:
         abort(403)
-
     request.current_user = current_user
 
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
-    """
+    """ Not found handler"""
     return jsonify({"error": "Not found"}), 404
 
 
