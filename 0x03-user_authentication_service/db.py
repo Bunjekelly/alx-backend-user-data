@@ -45,8 +45,9 @@ class DB:
         """Find a user by arbitrary keyword arguments"""
         users = self._session.query(User)
         try:
-            return users.filter_by(**kwargs).first()
+            user = users.filter_by(**kwargs).one()
         except NoResultFound:
-            raise
+            raise NoResultFound()
         except InvalidRequestError:
-            raise
+            raise InvalidRequestError()
+        return user
