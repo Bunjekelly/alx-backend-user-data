@@ -7,13 +7,13 @@ import bcrypt
 from uuid import uuid4
 from sqlalchemy.orm.exc import NoResultFound
 from user import User
-from Typing import Union
+from typing import Union
 
 
-def _hash_password(self, password: str) -> bytes:
+def _hash_password(password: str) -> bytes:
     """Hash a password with bcrypt"""
-    passwd = password.encode('utf-8')
-    return bcrypt.hashpw(passwd, bcrypt.gensalt())
+    hashed_pwd = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    return hashed_pwd
 
 
 def _generate_uuid() -> str:
