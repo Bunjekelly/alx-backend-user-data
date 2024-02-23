@@ -6,8 +6,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
 
@@ -19,7 +17,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -40,28 +38,3 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
-
-    def find_user_by(self, **kwargs: Dict[str, str]) -> User:
-        """Find a user by arbitrary keyword arguments"""
-        users = self._session.query(User)
-        try:
-            user = users.filter_by(**kwargs).one()
-        except NoResultFound:
-            raise NoResultFound()
-        except InvalidRequestError:
-            raise InvalidRequestError()
-        return user
-
-    def update_user(self, user_id: int, **kwargs) -> None:
-        """Update a user with arbitrary keyword arguments"""
-        user = self.find_user_by(id=user_id)
-        if not user:
-            raise ValueError(f"No user with id {user_id} found")
-
-        for key, value in kwargs.items():
-            if hasattr(user, key):
-                setattr(user, key, value)
-            else:
-                raise ValueError(f"Invalid attribute {key} for user")
-
-        self._session.commit()
