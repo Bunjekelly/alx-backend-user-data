@@ -5,15 +5,12 @@ from auth import Auth
 import logging
 from flask import Flask, abort, jsonify, redirect, request
 
-
-logging.disable(logging.WARNING)
-
-
-AUTH = Auth()
 app = Flask(__name__)
-
 
 @app.route("/", methods=["GET"], strict_slashes=False)
 def index() -> str:
     """This the index function"""
     return jsonify({"message": "Bienvenue"})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port="5000")
