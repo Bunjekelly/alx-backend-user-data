@@ -5,6 +5,7 @@ Main file
 
 import requests
 
+
 def register_user(email: str, password: str) -> None:
     """
     Test for register a user with the given email and password
