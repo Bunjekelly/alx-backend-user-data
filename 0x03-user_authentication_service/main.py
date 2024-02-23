@@ -7,7 +7,7 @@ import requests
 
 def register_user(email: str, password: str) -> None:
     """
-    Test for register a user with the given email and password.
+    Test for register a user with the given email and password
     """
     url = 'http://127.0.0.1:5000/users'
     data = {'email': email, 'password': password}
